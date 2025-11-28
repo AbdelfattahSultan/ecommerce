@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/features/products_screen/presentation/widgets/custom_product_widget.dart';
 import 'package:ecommerce_app/features/products_screen/products_cubit/products_cubit.dart';
@@ -12,9 +13,10 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Id = ModalRoute.of(context)!.settings.arguments;
     return BlocProvider(
       create: (context) =>
-          ProductsCubit()..getProductsByCategory("6439d5b90049ad0b52b90048"),
+          ProductsCubit()..getProductsByCategory(Id.toString()),
       child: Scaffold(
         appBar: const HomeScreenAppBar(automaticallyImplyLeading: true),
         body: Padding(
@@ -25,14 +27,15 @@ class ProductsScreen extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is ProductsError) {
                 return Center(child: Text(state.message));
+              } else if (state is ProductsEmpty) {
+                return Center(child: Text(state.message));
               } else if (state is ProductsSuccess) {
                 final products = state.products;
-
                 return Column(
                   children: [
                     Expanded(
                       child: GridView.builder(
-                        itemCount: 20,
+                        itemCount: products.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -43,6 +46,13 @@ class ProductsScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var product = products[index];
                           return CustomProductWidget(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.productDetails,
+                                arguments: product.id,
+                              );
+                            },
                             image: product.imageCover ?? "",
                             title: product.title ?? "",
                             price: (product.price ?? 0).toDouble(),

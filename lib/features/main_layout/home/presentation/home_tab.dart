@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/brand_cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/brand_cubit/brand_state.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/category_cubit/category_cubit.dart';
@@ -86,6 +87,13 @@ class _HomeTabState extends State<HomeTab> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return CustomCategoryWidget(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.productsScreenRoute,
+                                  arguments: categories[index].id,
+                                );
+                              },
                               categoryImage: categories[index].image,
                               categoryName: categories[index].name,
                             );
@@ -117,6 +125,7 @@ class _HomeTabState extends State<HomeTab> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return CustomBrandWidget(
+                              
                               brandImage: brands[index].image,
                               brandName: brands[index].name,
                             );

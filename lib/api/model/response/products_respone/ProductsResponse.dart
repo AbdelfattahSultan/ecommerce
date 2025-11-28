@@ -61,7 +61,7 @@ class ProductsMetadata {
 }
 
 class Product {
-  int? sold;
+  num? sold;
   List<String>? images;
   List<ProductSubcategory>? subcategory;
   int? ratingsQuantity;
@@ -102,8 +102,10 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
+    num? _toNum(dynamic v) => v is num ? v : null;
+
     return Product(
-      sold: json['sold'] as int?,
+      sold: _toNum(json['sold']),
       images: json['images'] != null
           ? List<String>.from(json['images'] as List)
           : [],
@@ -118,15 +120,16 @@ class Product {
       slug: json['slug'] as String?,
       description: json['description'] as String?,
       quantity: json['quantity'] as int?,
-      price: json['price'],
-      priceAfterDiscount: json['priceAfterDiscount'],
+      price: _toNum(json['price']),
+      priceAfterDiscount: _toNum(json['priceAfterDiscount']),
       imageCover: json['imageCover'] as String?,
       category: json['category'] != null
           ? ProductCategory.fromJson(json['category'])
           : null,
-      brand:
-          json['brand'] != null ? ProductBrand.fromJson(json['brand']) : null,
-      ratingsAverage: json['ratingsAverage'],
+      brand: json['brand'] != null
+          ? ProductBrand.fromJson(json['brand'])
+          : null,
+      ratingsAverage: _toNum(json['ratingsAverage']),
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
       id: json['id'] as String?,
@@ -156,6 +159,7 @@ class Product {
     };
   }
 }
+
 
 class ProductSubcategory {
   String? id;

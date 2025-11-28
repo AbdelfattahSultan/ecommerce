@@ -7,13 +7,19 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit() : super(ProductsInitial());
 
   void getProductsByCategory(String categoryId) async {
-    emit(ProductsLoading());
-    try {
-      var response = await apiManager.getProductsByCategory(categoryId);
+  emit(ProductsLoading());
+  try {
+    var response = await apiManager.getProductsByCategory(categoryId);
 
-      emit(ProductsSuccess(response.data ?? []));
-    } catch (e) {
-      emit(ProductsError('Failed to fetch products'));
+    if (response.data == null || response.data!.isEmpty) {
+      emit(ProductsEmpty("No products found for this category"));
+    } else {
+      emit(ProductsSuccess(response.data!));
     }
+
+  } catch (e) {
+    emit(ProductsError("Failed to fetch products"));
   }
+}
+
 }

@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/widget/heart_button.dart';
@@ -12,6 +11,7 @@ class CustomProductWidget extends StatelessWidget {
   final double price;
   final double discountPercentage;
   final double rating;
+  final  VoidCallback? onTap;
 
   const CustomProductWidget({
     super.key,
@@ -20,7 +20,7 @@ class CustomProductWidget extends StatelessWidget {
     required this.description,
     required this.price,
     required this.discountPercentage,
-    required this.rating,
+    required this.rating, this.onTap,
   });
 
   bool get isNetworkImage {
@@ -33,9 +33,7 @@ class CustomProductWidget extends StatelessWidget {
     double cardWidth = MediaQuery.of(context).size.width / 2 - 24;
 
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, Routes.productDetails);
-      },
+      onTap: onTap,
       child: Container(
         width: cardWidth,
         decoration: BoxDecoration(

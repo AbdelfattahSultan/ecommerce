@@ -58,4 +58,6 @@ class ApiManager {
     var productDetailsResponse = ProductDetailsResponse.fromJson(response.data);
     return productDetailsResponse;
   }
+
+  
 }

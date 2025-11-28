@@ -34,7 +34,7 @@ class MainApp extends StatelessWidget {
           Routes.signInRoute: (context) => const SignInScreen(),
           Routes.signUpRoute: (context) => const SignUpScreen(),
         },
-        initialRoute: Routes.signInRoute,
+        initialRoute: Routes.mainRoute,
       ),
     );
   }

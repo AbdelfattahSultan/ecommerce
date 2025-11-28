@@ -1,7 +1,7 @@
+import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
-import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:flutter/material.dart';
 
 class SubCategoryItem extends StatelessWidget {

@@ -1,8 +1,14 @@
-import 'package:ecommerce_app/core/routes_manager/routes.dart';
+
+import 'package:ecommerce_app/core/Routes/Routes.dart';
+import 'package:ecommerce_app/features/auth/presentation/screens/sign_in_screen.dart';
+import 'package:ecommerce_app/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:ecommerce_app/features/cart/screens/cart_screen.dart';
+import 'package:ecommerce_app/features/main_layout/main_layout.dart';
+import 'package:ecommerce_app/features/product_details/presentation/screen/product_details.dart';
+import 'package:ecommerce_app/features/products_screen/presentation/screens/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'core/routes_manager/route_generator.dart';
 
 void main() {
   runApp(const MainApp());
@@ -20,7 +26,14 @@ class MainApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: child,
-        onGenerateRoute: RouteGenerator.getRoute,
+        routes: {
+          Routes.cartRoute: (context) => const CartScreen(),
+          Routes.mainRoute: (context) => const MainLayout(),
+          Routes.productsScreenRoute: (context) => const ProductsScreen(),
+          Routes.productDetails: (context) => const ProductDetails(),
+          Routes.signInRoute: (context) => const SignInScreen(),
+          Routes.signUpRoute: (context) => const SignUpScreen(),
+        },
         initialRoute: Routes.signInRoute,
       ),
     );

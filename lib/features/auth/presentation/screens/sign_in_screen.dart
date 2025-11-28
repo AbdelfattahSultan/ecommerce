@@ -1,7 +1,7 @@
+import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
-import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:ecommerce_app/core/widget/custom_elevated_button.dart';
 import 'package:ecommerce_app/core/widget/main_text_field.dart';
 import 'package:ecommerce_app/core/widget/validators.dart';

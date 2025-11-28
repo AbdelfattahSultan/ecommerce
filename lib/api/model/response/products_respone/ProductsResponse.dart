@@ -102,10 +102,10 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    num? _toNum(dynamic v) => v is num ? v : null;
+    num? toNum(dynamic v) => v is num ? v : null;
 
     return Product(
-      sold: _toNum(json['sold']),
+      sold: toNum(json['sold']),
       images: json['images'] != null
           ? List<String>.from(json['images'] as List)
           : [],
@@ -120,8 +120,8 @@ class Product {
       slug: json['slug'] as String?,
       description: json['description'] as String?,
       quantity: json['quantity'] as int?,
-      price: _toNum(json['price']),
-      priceAfterDiscount: _toNum(json['priceAfterDiscount']),
+      price: toNum(json['price']),
+      priceAfterDiscount: toNum(json['priceAfterDiscount']),
       imageCover: json['imageCover'] as String?,
       category: json['category'] != null
           ? ProductCategory.fromJson(json['category'])
@@ -129,7 +129,7 @@ class Product {
       brand: json['brand'] != null
           ? ProductBrand.fromJson(json['brand'])
           : null,
-      ratingsAverage: _toNum(json['ratingsAverage']),
+      ratingsAverage: toNum(json['ratingsAverage']),
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
       id: json['id'] as String?,

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/api/model/response/BrandsResponse.dart';
 import 'package:ecommerce_app/api/model/response/CategoriesResponse.dart';
+import 'package:ecommerce_app/api/model/response/favorite_response/favorite_response.dart';
 import 'package:ecommerce_app/api/model/response/products_details/productDetails_response.dart';
 import 'package:ecommerce_app/api/model/response/products_respone/ProductsResponse.dart';
 import 'package:injectable/injectable.dart';
@@ -59,5 +60,20 @@ class ApiManager {
     return productDetailsResponse;
   }
 
-  
+  Future<FavoriteResponse> addProductToFav(String productsId) async {
+    var response = await _dio.post(
+      "https://ecommerce.routemisr.com/api/v1/wishlist",
+      data: {"productId": productsId},
+      options: Options(
+        headers: {
+          "token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MjlmOGNiODRkOTUwYzkwMjM2YmVhYSIsIm5hbWUiOiJzdWx0YW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDM1ODM0NywiZXhwIjoxNzcyMTM0MzQ3fQ.CyYsSlml-ljGZaXt-9lj9yRBJLs8228EMXXYQaUysLI",
+          "Content-Type": "application/json",
+        },
+      ),
+    );
+
+    var favoriteResponse = FavoriteResponse.fromJson(response.data);
+    return favoriteResponse;
+  }
 }

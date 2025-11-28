@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
+import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/favorite_cubit.dart';
 import 'package:ecommerce_app/features/products_screen/presentation/widgets/custom_product_widget.dart';
 import 'package:ecommerce_app/features/products_screen/products_cubit/products_cubit.dart';
 import 'package:ecommerce_app/features/products_screen/products_cubit/products_state.dart';
@@ -13,10 +14,16 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Id = ModalRoute.of(context)!.settings.arguments;
-    return BlocProvider(
-      create: (context) =>
-          ProductsCubit()..getProductsByCategory(Id.toString()),
+    final id = ModalRoute.of(context)!.settings.arguments;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              ProductsCubit()..getProductsByCategory(id.toString()),
+        ),
+        BlocProvider(create: (context) => FavoriteCubit()),
+      ],
+
       child: Scaffold(
         appBar: const HomeScreenAppBar(automaticallyImplyLeading: true),
         body: Padding(
@@ -46,6 +53,7 @@ class ProductsScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var product = products[index];
                           return CustomProductWidget(
+                            productId: product.id,
                             onTap: () {
                               Navigator.pushNamed(
                                 context,

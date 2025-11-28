@@ -73,9 +73,7 @@ class ProductDetails {
       brand: json['brand'] != null
           ? BrandModel.fromJson(json['brand'])
           : null,
-      ratingsAverage: json['ratingsAverage'] != null
-          ? json['ratingsAverage'].toDouble()
-          : null,
+      ratingsAverage: json['ratingsAverage']?.toDouble(),
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );

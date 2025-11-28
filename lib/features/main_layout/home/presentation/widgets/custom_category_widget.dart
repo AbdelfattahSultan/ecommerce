@@ -1,56 +1,59 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCategoryWidget extends StatelessWidget {
-  const CustomCategoryWidget({super.key});
+  final String? categoryName;
+  final String? categoryImage;
+
+  const CustomCategoryWidget({
+    super.key,
+    this.categoryName,
+    this.categoryImage,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // CachedNetworkImage(
-        //   height: 100,
-        //   width: 100,
-        //   fit: BoxFit.cover,
-        //   imageUrl: ImageAssets.categoryHomeImage,
-        //   placeholder: (context, url) =>
-        //       const Center(child: CircularProgressIndicator()),
-        //   errorWidget: (context, url, error) =>
-        //       const Center(child: Icon(Icons.error)),
-        //   imageBuilder: (context, imageProvider) {
-        //     return Container(
-        //       decoration: BoxDecoration(
-        //         shape: BoxShape.circle,
-        //         image: DecorationImage(
-        //           image: imageProvider,
-        //           fit: BoxFit.cover,
-        //         ),
-        //       ),
-        //     );
-        //   },
-        // ),
+    final hasNetworkImage = categoryImage != null && categoryImage!.isNotEmpty;
 
-        ClipRRect(
-          borderRadius: BorderRadius.circular(100.r),
-          child: Container(
-            height: 100.h,
-            width: 100.w,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-            ),
-            child: Image.asset(
-              ImageAssets.categoryHomeImage,
-              fit: BoxFit.cover,
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min, // مهم عشان ما يمددش نفسه زيادة
+      children: [
+        SizedBox(
+          height: 80,
+          width: 80,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: hasNetworkImage
+                ? CachedNetworkImage(
+                    imageUrl: categoryImage!,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Center(child: Icon(Icons.error)),
+                  )
+                : Image.asset(
+                    ImageAssets.categoryHomeImage,
+                    fit: BoxFit.cover,
+                  ),
           ),
         ),
-        SizedBox(height: 8.h),
-        Text(
-          "men's fashion",
-          style: getRegularStyle(color: ColorManager.darkBlue, fontSize: 14.sp),
+        SizedBox(height: 8),
+        SizedBox(
+          width: 90,
+          child: Text(
+            categoryName ?? "",
+            style: getRegularStyle(
+              color: ColorManager.darkBlue,
+              fontSize: 14,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

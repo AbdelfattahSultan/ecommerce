@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/di/di.dart';
 import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes_manager/route_generator.dart';
 
 void main() {
-  configureDependencies();
   runApp(const MainApp());
 }
 

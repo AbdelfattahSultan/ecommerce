@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/api/model/response/BrandsResponse.dart';
 import 'package:ecommerce_app/api/model/response/CategoriesResponse.dart';
+import 'package:ecommerce_app/api/model/response/products_details/productDetails_response.dart';
 import 'package:ecommerce_app/api/model/response/products_respone/ProductsResponse.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -47,5 +48,14 @@ class ApiManager {
 
     var productsResponse = ProductsResponse.fromJson(response.data);
     return productsResponse;
+  }
+
+  Future<ProductDetailsResponse> getProductsDetails(String productsId) async {
+    var response = await _dio.get(
+      "https://ecommerce.routemisr.com/api/v1/products/$productsId",
+    );
+
+    var productDetailsResponse = ProductDetailsResponse.fromJson(response.data);
+    return productDetailsResponse;
   }
 }

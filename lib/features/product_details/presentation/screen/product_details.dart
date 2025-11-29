@@ -68,7 +68,7 @@ class ProductDetails extends StatelessWidget {
                     children: [
                       ProductSlider(
                         items: [
-                          ProductItem(imageUrl: product.images![0]??""),
+                          ProductItem(imageUrl: product.images![0]),
                           ProductItem(imageUrl: product.images![1]),
                           ProductItem(imageUrl: product.images![2]),
                         ],

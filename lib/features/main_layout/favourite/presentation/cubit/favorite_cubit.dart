@@ -1,21 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/api/ApiManager.dart';
-import 'package:ecommerce_app/api/model/response/favorite_response/favorite_response.dart';
 
-import 'favorite_state.dart';
-
-class FavoriteCubit extends Cubit<FavoriteState> {
+class FavoriteCubit extends Cubit<bool> {
   final ApiManager apiManager = ApiManager();
 
-  FavoriteCubit() : super(FavoriteInitial());
+  FavoriteCubit() : super(false);
 
   Future<void> addProductToFav(String productId) async {
-    emit(FavoriteLoading());
     try {
-      FavoriteResponse response = await apiManager.addProductToFav(productId);
-      emit(FavoriteSuccess(response));
+      await apiManager.addProductToFav(productId);
+      emit(true);
     } catch (e) {
-      emit(FavoriteError(e.toString()));
+      emit(false);
     }
   }
 }

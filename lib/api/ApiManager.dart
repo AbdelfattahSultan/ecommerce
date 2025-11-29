@@ -76,4 +76,20 @@ class ApiManager {
     var favoriteResponse = FavoriteResponse.fromJson(response.data);
     return favoriteResponse;
   }
+
+  Future<ProductsResponse> getAllFavProduct() async {
+    var response = await _dio.get(
+      "https://ecommerce.routemisr.com/api/v1/wishlist",
+      options: Options(
+        headers: {
+          "token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MjlmOGNiODRkOTUwYzkwMjM2YmVhYSIsIm5hbWUiOiJzdWx0YW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDM1ODM0NywiZXhwIjoxNzcyMTM0MzQ3fQ.CyYsSlml-ljGZaXt-9lj9yRBJLs8228EMXXYQaUysLI",
+          "Content-Type": "application/json",
+        },
+      ),
+    );
+
+    var productsResponse = ProductsResponse.fromJson(response.data);
+    return productsResponse;
+  }
 }

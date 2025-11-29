@@ -1,15 +1,16 @@
-import 'package:ecommerce_app/api/model/response/favorite_response/favorite_response.dart';
+import 'package:ecommerce_app/api/model/response/products_respone/ProductsResponse.dart';
 
 abstract class FavoriteState {}
 
 class FavoriteInitial extends FavoriteState {}
 
-class FavoriteLoading extends FavoriteState {}
+class FavoriteLoading extends FavoriteState {
+  
+}
 
 class FavoriteSuccess extends FavoriteState {
-  final FavoriteResponse response;
-
-  FavoriteSuccess(this.response);
+  final List<Product> products;
+  FavoriteSuccess(this.products);
 }
 
 class FavoriteError extends FavoriteState {

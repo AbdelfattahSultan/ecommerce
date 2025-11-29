@@ -24,6 +24,9 @@ class FavouriteScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (state is FavoriteError) {
               return Center(child: Text(state.message));
+            }
+            else if (state is FavoriteEmpty) {
+              return Center(child: Text("No favorites added yet"));
             } else if (state is FavoriteSuccess) {
               var favoriteProducts = state.products;
               return ListView.builder(

@@ -90,7 +90,7 @@ class _HomeTabState extends State<HomeTab> {
                               onTap: () {
                                 Navigator.pushNamed(
                                   context,
-                                  Routes.productsScreenRoute,
+                                  Routes.productsByCategory,
                                   arguments: categories[index].id,
                                 );
                               },
@@ -124,13 +124,18 @@ class _HomeTabState extends State<HomeTab> {
                         child: GridView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return CustomBrandWidget(
-                              
+                            return CustomBrandWidget( onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.productsByBrand,
+                                  arguments: brands[index].id,
+                                );
+                              },
                               brandImage: brands[index].image,
                               brandName: brands[index].name,
                             );
                           },
-                          itemCount: 20,
+                          itemCount: brands.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,

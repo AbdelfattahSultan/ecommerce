@@ -11,6 +11,10 @@ class GetFavCubit extends Cubit<FavoriteState> {
     try {
       var response = await apiManager.getAllFavProduct();
       emit(FavoriteSuccess(response.data ?? []));
+
+      if (response.data!.isEmpty || response.data == null) {
+        emit(FavoriteEmpty());
+      }
     } catch (e) {
       emit(FavoriteError(e.toString()));
     }

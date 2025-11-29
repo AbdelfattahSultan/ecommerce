@@ -5,9 +5,7 @@ import 'package:ecommerce_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/resources/assets_manager.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/styles_manager.dart';
 import '../../../../core/resources/values_manager.dart';
@@ -55,7 +53,13 @@ class SignUpScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: AppSize.s40.h),
-                        Center(child: SvgPicture.asset(SvgAssets.routeLogo)),
+                          Center(
+                          child: Image.asset(
+                            "assets/images/logoApp.png",
+                            height: 150,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(height: AppSize.s40.h),
                         BuildTextField(
                           backgroundColor: ColorManager.white,

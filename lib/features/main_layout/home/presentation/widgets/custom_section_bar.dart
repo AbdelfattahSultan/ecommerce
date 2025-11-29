@@ -24,15 +24,7 @@ class CustomSectionBar extends StatelessWidget {
               color: ColorManager.darkBlue,
             ),
           ),
-          TextButton(
-            onPressed: () {
-              function();
-            },
-            child: Text(
-              'view all',
-              style: getMediumStyle(color: ColorManager.darkBlue),
-            ),
-          ),
+        
         ],
       ),
     );

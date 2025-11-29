@@ -16,14 +16,11 @@ dependencies:
   auto_size_text:
   colornames:
   flutter_svg:
-  flutter_native_splash:
   readmore:
   smooth_page_indicator:
   dio: ^5.9.0
   pretty_dio_logger: ^1.4.0
-  injectable:
-  get_it:
-  provider:
+  
   flutter_bloc: ^9.1.1
   shared_preferences: ^2.5.3
 

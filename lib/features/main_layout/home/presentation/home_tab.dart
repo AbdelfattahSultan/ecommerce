@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/brand_cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/brand_cubit/brand_state.dart';
@@ -64,11 +63,13 @@ class _HomeTabState extends State<HomeTab> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 20),
             CustomAdsWidget(
               adsImages: adsImages,
               currentIndex: _currentIndex,
               timer: _timer,
             ),
+            SizedBox(height: 20),
             Column(
               children: [
                 CustomSectionBar(sectionNname: 'Categories', function: () {}),
@@ -124,7 +125,8 @@ class _HomeTabState extends State<HomeTab> {
                         child: GridView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return CustomBrandWidget( onTap: () {
+                            return CustomBrandWidget(
+                              onTap: () {
                                 Navigator.pushNamed(
                                   context,
                                   Routes.productsByBrand,

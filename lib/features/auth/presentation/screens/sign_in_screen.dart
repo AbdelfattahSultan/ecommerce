@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/core/Routes/Routes.dart';
-import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/core/widget/custom_elevated_button.dart';
@@ -7,12 +6,9 @@ import 'package:ecommerce_app/core/widget/main_text_field.dart';
 import 'package:ecommerce_app/core/widget/validators.dart';
 import 'package:ecommerce_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/cubit/auth_state.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../../core/resources/font_manager.dart';
 import '../../../../core/resources/styles_manager.dart';
 
@@ -25,8 +21,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'abdalla90@gmail.com');
-  final _passwordController = TextEditingController(text: 'Abdalla1@gmail.com');
+  final _emailController = TextEditingController(text: 'sulta@gmail.com');
+  final _passwordController = TextEditingController(text: 'Ahmed@123');
 
   @override
   void dispose() {
@@ -65,11 +61,17 @@ class _SignInScreenState extends State<SignInScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: AppSize.s40.h),
-                        Center(child: SvgPicture.asset(SvgAssets.routeLogo)),
+                        Center(
+                          child: Image.asset(
+                            "assets/images/logoApp.png",
+                            height: 150,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(height: AppSize.s40.h),
 
                         Text(
-                          'Welcome Back To Route',
+                          'Welcome Back',
                           style: getBoldStyle(
                             color: ColorManager.white,
                           ).copyWith(fontSize: FontSize.s24.sp),
@@ -87,7 +89,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           controller: _emailController,
                           backgroundColor: ColorManager.white,
                           hint: 'enter your email',
-                          label: 'User email',
+                          label: 'email',
                           textInputType: TextInputType.emailAddress,
                           validation: AppValidators.validateEmail,
                         ),
@@ -102,23 +104,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           validation: AppValidators.validatePassword,
                           isObscured: true,
                           textInputType: TextInputType.text,
-                        ),
-
-                        SizedBox(height: AppSize.s8.h),
-
-                        Row(
-                          children: [
-                            const Spacer(),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Text(
-                                'Forget password?',
-                                style: getMediumStyle(
-                                  color: ColorManager.white,
-                                ).copyWith(fontSize: FontSize.s18.sp),
-                              ),
-                            ),
-                          ],
                         ),
 
                         SizedBox(height: AppSize.s60.h),

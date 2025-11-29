@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/widget/custom_elevated_button.dart';
+import 'package:ecommerce_app/features/cart/cubit/add_to_cart_cubit.dart';
+import 'package:ecommerce_app/features/cart/cubit/add_to_cart_state.dart';
 import 'package:ecommerce_app/features/product_details/presentation/cubit/details_cubit.dart';
 import 'package:ecommerce_app/features/product_details/presentation/cubit/details_state.dart';
 import 'package:ecommerce_app/features/product_details/presentation/widgets/product_description.dart';
@@ -11,12 +13,14 @@ import 'package:ecommerce_app/features/product_details/presentation/widgets/prod
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Id = ModalRoute.of(context)!.settings.arguments;
+    final Id = ModalRoute.of(context)!.settings.arguments.toString();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -27,96 +31,117 @@ class ProductDetails extends StatelessWidget {
           ).copyWith(fontSize: 20),
         ),
       ),
-      body: BlocProvider(
-        create: (context) =>
-            ProductDetailsCubit()..fetchProductDetails(Id.toString()),
-        child: SingleChildScrollView(
-          child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-            builder: (context, state) {
-              if (state is ProductDetailsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is ProductDetailsError) {
-                return Center(child: Text(state.message));
-              } else if (state is ProductDetailsSuccess) {
-                var product = state.productDetails;
-                return Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    bottom: 50,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProductSlider(
-                        items: [
-                          ProductItem(imageUrl: product.images![0]),
-                          ProductItem(imageUrl: product.images![1]),
-                          ProductItem(imageUrl: product.images![2]),
-                        ],
-                        initialIndex: 0,
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      ProductLabel(
-                        productName: product.title ?? '',
-                        productPrice: 'EGP ${product.price ?? ''}',
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      ProductRating(
-                        productBuyers: product.sold.toString(),
-                        productRating: '${product.ratingsAverage} ',
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      ProductDescription(
-                        productDescription: product.description ?? '',
-                      ),
-                      const SizedBox(height: 48),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Total price',
-                                style: getMediumStyle(
-                                  color: ColorManager.primary.withOpacity(.6),
-                                ).copyWith(fontSize: 18),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                'EGP ${product.price ?? ''}',
-                                style: getMediumStyle(
-                                  color: ColorManager.appBarTitleColor,
-                                ).copyWith(fontSize: 18),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(width: 30),
-                          Expanded(
-                            child: CustomElevatedButton(
-                              label: 'Add to cart',
-                              onTap: () {},
-                              prefixIcon: Icon(
-                                Icons.add_shopping_cart_outlined,
-                                color: ColorManager.white,
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                ProductDetailsCubit()..fetchProductDetails(Id),
+          ),
+          BlocProvider(
+            create: (context) => AddToCartCubit(),
+          ),
+        ],
+        child: BlocListener<AddToCartCubit, AddToCartState>(
+          listener: (context, state) {
+            if (state is AddToCartSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            } else if (state is AddToCartError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          },
+          child: SingleChildScrollView(
+            child: BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
+              builder: (context, state) {
+                if (state is ProductDetailsLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is ProductDetailsError) {
+                  return Center(child: Text(state.message));
+                } else if (state is ProductDetailsSuccess) {
+                  var product = state.productDetails;
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      bottom: 50,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ProductSlider(
+                          items: [
+                            ProductItem(imageUrl: product.images![0]),
+                            ProductItem(imageUrl: product.images![1]),
+                            ProductItem(imageUrl: product.images![2]),
+                          ],
+                          initialIndex: 0,
+                        ),
+                        const SizedBox(height: 24),
+                        ProductLabel(
+                          productName: product.title ?? '',
+                          productPrice: 'EGP ${product.price ?? ''}',
+                        ),
+                        const SizedBox(height: 16),
+                        ProductRating(
+                          productBuyers: product.sold.toString(),
+                          productRating: '${product.ratingsAverage} ',
+                        ),
+                        const SizedBox(height: 16),
+                        ProductDescription(
+                          productDescription: product.description ?? '',
+                        ),
+                        const SizedBox(height: 48),
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total price',
+                                  style: getMediumStyle(
+                                    color: ColorManager.primary
+                                        .withOpacity(.6),
+                                  ).copyWith(fontSize: 18),
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  'EGP ${product.price ?? ''}',
+                                  style: getMediumStyle(
+                                    color: ColorManager.appBarTitleColor,
+                                  ).copyWith(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 30),
+                            Expanded(
+                              child: CustomElevatedButton(
+                                label: 'Add to cart',
+                                onTap: () {
+                                  String productId =
+                                      product.id ?? Id;
+                                  context
+                                      .read<AddToCartCubit>()
+                                      .addProductToCart(productId);
+                                },
+                                prefixIcon: Icon(
+                                  Icons.add_shopping_cart_outlined,
+                                  color: ColorManager.white,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                return const SizedBox();
-              }
-            },
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
           ),
         ),
       ),

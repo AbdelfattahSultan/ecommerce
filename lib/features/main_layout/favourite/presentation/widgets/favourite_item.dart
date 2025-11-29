@@ -113,12 +113,7 @@ class FavoriteItem extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 14),
-                  AddToCartButton(
-                    onPressed: () {
-                
-                    },
-                    text: AppConstants.addToCart,
-                  ),
+              
                 ],
               ),
             ],

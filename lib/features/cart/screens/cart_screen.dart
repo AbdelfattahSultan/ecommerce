@@ -19,31 +19,12 @@ class CartScreen extends StatelessWidget {
           style: getMediumStyle(fontSize: 20, color: ColorManager.textColor),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(
-                IconsAssets.icSearch,
-              ),
-              color: ColorManager.primary,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(IconsAssets.icCart),
-              color: ColorManager.primary,
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p14),
         child: Column(
           children: [
             Expanded(
-              // the list of cart items ===============
               child: ListView.separated(
                 itemBuilder: (context, index) => CartItemWidget(
                   imagePath: ImageAssets.categoryCardImage,
@@ -62,7 +43,7 @@ class CartScreen extends StatelessWidget {
                 itemCount: 2,
               ),
             ),
-            // the total price and checkout button========
+
             TotalPriceAndCheckoutBotton(
               totalPrice: 1200,
               checkoutButtonOnTap: () {},

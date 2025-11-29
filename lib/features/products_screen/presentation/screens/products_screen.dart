@@ -53,7 +53,7 @@ class ProductsScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var product = products[index];
                           return CustomProductWidget(
-                            productId: product.id,
+                            productId: product.id??"",
                             onTap: () {
                               Navigator.pushNamed(
                                 context,

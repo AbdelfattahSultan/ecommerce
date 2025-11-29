@@ -2,16 +2,24 @@ import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/api/ApiManager.dart';
 
 class FavoriteCubit extends Cubit<bool> {
-  final ApiManager apiManager = ApiManager();
+  final ApiManager apiManager =ApiManager();
 
-  FavoriteCubit() : super(false);
+  FavoriteCubit({ bool initialIsFavorite = false})
+    : super(initialIsFavorite);
 
-  Future<void> addProductToFav(String productId) async {
+  Future<void> toggleFavorite(String productId) async {
+    final wasFavorite = state;
+
     try {
-      await apiManager.addProductToFav(productId);
-      emit(true);
+      if (wasFavorite) {
+        await apiManager.deleteProductFromFav(productId);
+      } else {
+        await apiManager.addProductToFav(productId);
+      }
+
+      emit(!wasFavorite);
     } catch (e) {
-      emit(false);
+      emit(wasFavorite);
     }
   }
 }

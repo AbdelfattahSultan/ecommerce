@@ -14,7 +14,8 @@ class CustomProductWidget extends StatelessWidget {
   final double discountPercentage;
   final double rating;
   final VoidCallback? onTap;
-  final String? productId;
+  final String productId;
+  final bool isFavorite; // جاي من الـ API أو الافتراضى false
 
   const CustomProductWidget({
     super.key,
@@ -24,8 +25,9 @@ class CustomProductWidget extends StatelessWidget {
     required this.price,
     required this.discountPercentage,
     required this.rating,
+    required this.productId,
     this.onTap,
-    this.productId,
+    this.isFavorite = false,
   });
 
   bool get isNetworkImage {
@@ -36,158 +38,157 @@ class CustomProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double cardWidth = MediaQuery.of(context).size.width / 2 - 24;
 
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: cardWidth,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: ColorManager.primary.withOpacity(0.3),
-            width: 1.5,
+    return BlocProvider(
+      create: (_) => FavoriteCubit(
+      
+        initialIsFavorite: isFavorite,
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: cardWidth,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: ColorManager.primary.withOpacity(0.3),
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16.r),
+                    ),
+                    child: SizedBox(
+                      height: 130,
+                      width: double.infinity,
+                      child: isNetworkImage
+                          ? Image.network(
+                              image,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Center(
+                                  child: Icon(Icons.broken_image),
+                                );
+                              },
+                            )
+                          : Image.asset(image, fit: BoxFit.cover),
+                    ),
                   ),
-                  child: SizedBox(
-                    height: 130,
-                    width: double.infinity,
-                    child: isNetworkImage
-                        ? Image.network(
-                            image,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Center(
-                                child: Icon(Icons.broken_image),
-                              );
-                            },
-                          )
-                        : Image.asset(image, fit: BoxFit.cover),
-                  ),
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: BlocListener<FavoriteCubit, bool>(
-                    listener: (context, isSuccess) {
-                      if (isSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Product added successfully!"),
-                            duration: Duration(seconds: 1),
-                          ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: BlocBuilder<FavoriteCubit, bool>(
+                      builder: (context, isFav) {
+                        return HeartButton(
+                          isFavorite: isFav,
+                          onTap: () {
+                            context
+                                .read<FavoriteCubit>()
+                                .toggleFavorite(productId);
+                          },
                         );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Failed to add product"),
-                            duration: Duration(seconds: 1),
-                          ),
-                        );
-                      }
-                    },
-                    child: HeartButton(
-                      onTap: () {
-                        context
-                            .read<FavoriteCubit>()
-                            .addProductToFav(productId ?? "");
                       },
                     ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: getMediumStyle(
-                      color: ColorManager.textColor,
-                      fontSize: 14.sp,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: getRegularStyle(
-                      color: ColorManager.textColor,
-                      fontSize: 12.sp,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "EGP $price",
-                        style: getRegularStyle(
-                          color: ColorManager.textColor,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        "$discountPercentage %",
-                        style: getTextWithLine(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Review ($rating)",
-                            style: getRegularStyle(
-                              color: ColorManager.textColor,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                          const SizedBox(width: 2),
-                          const Icon(
-                            Icons.star_rate_rounded,
-                            color: ColorManager.starRateColor,
-                            size: 18,
-                          ),
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          height: 32,
-                          width: 32,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
-            ),
-          ],
+
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: getMediumStyle(
+                        color: ColorManager.textColor,
+                        fontSize: 14.sp,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                    const SizedBox(height: 4),
+
+                    Text(
+                      description,
+                      style: getRegularStyle(
+                        color: ColorManager.textColor,
+                        fontSize: 12.sp,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "EGP $price",
+                          style: getRegularStyle(
+                            color: ColorManager.textColor,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        Text(
+                          "$discountPercentage %",
+                          style: getTextWithLine(),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 4),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Review ($rating)",
+                              style: getRegularStyle(
+                                color: ColorManager.textColor,
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            const Icon(
+                              Icons.star_rate_rounded,
+                              color: ColorManager.starRateColor,
+                              size: 18,
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            height: 32,
+                            width: 32,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

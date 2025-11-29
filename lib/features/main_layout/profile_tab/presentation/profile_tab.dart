@@ -33,25 +33,20 @@ class ProfileTabState extends State<ProfileTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(
-                SvgAssets.routeLogo,
-                height: AppSize.s40,
-                colorFilter: ColorFilter.mode(
-                  ColorManager.primary,
-                  BlendMode.srcIn,
-                ),
-              ),
               SizedBox(height: AppSize.s20.h),
               Text(
-                'Welcome, Mohamed',
+                'Welcome, Abdelfattah',
                 style: getSemiBoldStyle(
-                    color: ColorManager.primary, fontSize: FontSize.s18),
+                  color: ColorManager.primary,
+                  fontSize: FontSize.s18,
+                ),
               ),
               Text(
-                'mohamed.N@gmail.com',
+                'abdelfattah@gmail.com',
                 style: getRegularStyle(
-                    color: ColorManager.primary.withOpacity(.5),
-                    fontSize: FontSize.s14),
+                  color: ColorManager.primary.withOpacity(.5),
+                  fontSize: FontSize.s14,
+                ),
               ),
               SizedBox(height: AppSize.s18.h),
               BuildTextField(
@@ -60,10 +55,11 @@ class ProfileTabState extends State<ProfileTab> {
                 backgroundColor: ColorManager.white,
                 hint: 'Enter your full name',
                 label: 'Full Name',
-                controller:
-                    TextEditingController(text: 'Mohamed Mohamed Nabil'),
+                controller: TextEditingController(text: 'abdelfattah'),
                 labelTextStyle: getMediumStyle(
-                    color: ColorManager.primary, fontSize: FontSize.s18),
+                  color: ColorManager.primary,
+                  fontSize: FontSize.s18,
+                ),
                 suffixIcon: IconButton(
                   icon: SvgPicture.asset(SvgAssets.edit),
                   onPressed: () {
@@ -74,8 +70,9 @@ class ProfileTabState extends State<ProfileTab> {
                 ),
                 textInputType: TextInputType.text,
                 validation: AppValidators.validateFullName,
-                hintTextStyle: getRegularStyle(color: ColorManager.primary)
-                    .copyWith(fontSize: 18.sp),
+                hintTextStyle: getRegularStyle(
+                  color: ColorManager.primary,
+                ).copyWith(fontSize: 18.sp),
               ),
               SizedBox(height: AppSize.s18.h),
               BuildTextField(
@@ -84,9 +81,13 @@ class ProfileTabState extends State<ProfileTab> {
                 backgroundColor: ColorManager.white,
                 hint: 'Enter your email address',
                 label: 'E-mail address',
-                controller: TextEditingController(text: 'mohamed.N@gmail.com'),
+                controller: TextEditingController(
+                  text: 'abdelfattah.N@gmail.com',
+                ),
                 labelTextStyle: getMediumStyle(
-                    color: ColorManager.primary, fontSize: FontSize.s18),
+                  color: ColorManager.primary,
+                  fontSize: FontSize.s18,
+                ),
                 suffixIcon: IconButton(
                   icon: SvgPicture.asset(SvgAssets.edit),
                   onPressed: () {
@@ -97,8 +98,9 @@ class ProfileTabState extends State<ProfileTab> {
                 ),
                 textInputType: TextInputType.emailAddress,
                 validation: AppValidators.validateEmail,
-                hintTextStyle: getRegularStyle(color: ColorManager.primary)
-                    .copyWith(fontSize: 18.sp),
+                hintTextStyle: getRegularStyle(
+                  color: ColorManager.primary,
+                ).copyWith(fontSize: 18.sp),
               ),
               SizedBox(height: AppSize.s18.h),
               BuildTextField(
@@ -115,12 +117,15 @@ class ProfileTabState extends State<ProfileTab> {
                 label: 'Password',
                 isObscured: true,
                 labelTextStyle: getMediumStyle(
-                    color: ColorManager.primary, fontSize: FontSize.s18),
+                  color: ColorManager.primary,
+                  fontSize: FontSize.s18,
+                ),
                 suffixIcon: SvgPicture.asset(SvgAssets.edit),
                 textInputType: TextInputType.text,
                 validation: AppValidators.validatePassword,
-                hintTextStyle: getRegularStyle(color: ColorManager.primary)
-                    .copyWith(fontSize: 18.sp),
+                hintTextStyle: getRegularStyle(
+                  color: ColorManager.primary,
+                ).copyWith(fontSize: 18.sp),
               ),
               SizedBox(height: AppSize.s18.h),
               BuildTextField(
@@ -131,7 +136,9 @@ class ProfileTabState extends State<ProfileTab> {
                 hint: 'Enter your mobile no.',
                 label: 'Your mobile number',
                 labelTextStyle: getMediumStyle(
-                    color: ColorManager.primary, fontSize: FontSize.s18),
+                  color: ColorManager.primary,
+                  fontSize: FontSize.s18,
+                ),
                 suffixIcon: IconButton(
                   icon: SvgPicture.asset(SvgAssets.edit),
                   onPressed: () {
@@ -142,20 +149,24 @@ class ProfileTabState extends State<ProfileTab> {
                 ),
                 textInputType: TextInputType.phone,
                 validation: AppValidators.validatePhoneNumber,
-                hintTextStyle: getRegularStyle(color: ColorManager.primary)
-                    .copyWith(fontSize: 18.sp),
+                hintTextStyle: getRegularStyle(
+                  color: ColorManager.primary,
+                ).copyWith(fontSize: 18.sp),
               ),
               SizedBox(height: AppSize.s18.h),
               BuildTextField(
-                controller:
-                    TextEditingController(text: '6th October, street 11.....'),
+                controller: TextEditingController(
+                  text: '6th October, street 11.....',
+                ),
                 borderBackgroundColor: ColorManager.primary.withOpacity(.5),
                 readOnly: isAddressReadOnly,
                 backgroundColor: ColorManager.white,
                 hint: '6th October, street 11.....',
                 label: 'Your Address',
                 labelTextStyle: getMediumStyle(
-                    color: ColorManager.primary, fontSize: FontSize.s18),
+                  color: ColorManager.primary,
+                  fontSize: FontSize.s18,
+                ),
                 suffixIcon: IconButton(
                   icon: SvgPicture.asset(SvgAssets.edit),
                   onPressed: () {
@@ -166,8 +177,9 @@ class ProfileTabState extends State<ProfileTab> {
                 ),
                 textInputType: TextInputType.streetAddress,
                 validation: AppValidators.validateFullName,
-                hintTextStyle: getRegularStyle(color: ColorManager.primary)
-                    .copyWith(fontSize: 18.sp),
+                hintTextStyle: getRegularStyle(
+                  color: ColorManager.primary,
+                ).copyWith(fontSize: 18.sp),
               ),
               SizedBox(height: AppSize.s50.h),
             ],

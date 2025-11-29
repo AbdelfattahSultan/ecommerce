@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/core/widget/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,14 +16,14 @@ class TotalPriceAndCheckoutBotton extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Total price ==================================
+
             Text(
               'Total price',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: getMediumStyle(
                 color: ColorManager.textColor.withOpacity(0.6),
-                fontSize: AppSize.s18.sp,
+                fontSize: 18,
               ),
             ),
             SizedBox(height: 4.h),
@@ -36,7 +35,7 @@ class TotalPriceAndCheckoutBotton extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: getMediumStyle(
                   color: ColorManager.textColor,
-                  fontSize: AppSize.s18.sp,
+                  fontSize: 18,
                 ),
               ),
             ),

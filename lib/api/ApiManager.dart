@@ -4,6 +4,8 @@ import 'package:ecommerce_app/api/model/response/CategoriesResponse.dart';
 import 'package:ecommerce_app/api/model/response/favorite_response/favorite_response.dart';
 import 'package:ecommerce_app/api/model/response/products_details/productDetails_response.dart';
 import 'package:ecommerce_app/api/model/response/products_respone/ProductsResponse.dart';
+import 'package:ecommerce_app/api/model/response/register_respone/auth_response_model.dart';
+import 'package:ecommerce_app/core/token/token.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -23,6 +25,35 @@ class ApiManager {
         maxWidth: 90,
       ),
     );
+  }
+
+  Future<AuthResponseModel> register({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
+    var response = await _dio.post(
+      "https://ecommerce.routemisr.com/api/v1/auth/signup",
+      data: {
+        "name": name,
+        "email": email,
+        "password": password,
+        "rePassword": password,
+        "phone": phone,
+      },
+    );
+    var authResponseModel = AuthResponseModel.fromJson(response.data);
+    return authResponseModel;
+  }
+
+  Future<AuthResponseModel> login(String email, String password) async {
+    var response = await _dio.post(
+      "https://ecommerce.routemisr.com/api/v1/auth/signin",
+      data: {"email": email, "password": password},
+    );
+    var authResponseModel = AuthResponseModel.fromJson(response.data);
+    return authResponseModel;
   }
 
   Future<CategoriesResponse> getCategories() async {
@@ -51,6 +82,16 @@ class ApiManager {
     return productsResponse;
   }
 
+  Future<ProductsResponse> getProductsByBrand(String brandId) async {
+    var response = await _dio.get(
+      "https://ecommerce.routemisr.com/api/v1/products",
+      queryParameters: {"brand": brandId},
+    );
+
+    var productsResponse = ProductsResponse.fromJson(response.data);
+    return productsResponse;
+  }
+
   Future<ProductDetailsResponse> getProductsDetails(String productsId) async {
     var response = await _dio.get(
       "https://ecommerce.routemisr.com/api/v1/products/$productsId",
@@ -61,15 +102,12 @@ class ApiManager {
   }
 
   Future<FavoriteResponse> addProductToFav(String productsId) async {
+    var token = await Token.getToken();
     var response = await _dio.post(
       "https://ecommerce.routemisr.com/api/v1/wishlist",
       data: {"productId": productsId},
       options: Options(
-        headers: {
-          "token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MjlmOGNiODRkOTUwYzkwMjM2YmVhYSIsIm5hbWUiOiJzdWx0YW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDM1ODM0NywiZXhwIjoxNzcyMTM0MzQ3fQ.CyYsSlml-ljGZaXt-9lj9yRBJLs8228EMXXYQaUysLI",
-          "Content-Type": "application/json",
-        },
+        headers: {"token": token ?? "", "Content-Type": "application/json"},
       ),
     );
 
@@ -78,14 +116,11 @@ class ApiManager {
   }
 
   Future<ProductsResponse> getAllFavProduct() async {
+    var token = await Token.getToken();
     var response = await _dio.get(
       "https://ecommerce.routemisr.com/api/v1/wishlist",
       options: Options(
-        headers: {
-          "token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MjlmOGNiODRkOTUwYzkwMjM2YmVhYSIsIm5hbWUiOiJzdWx0YW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDM1ODM0NywiZXhwIjoxNzcyMTM0MzQ3fQ.CyYsSlml-ljGZaXt-9lj9yRBJLs8228EMXXYQaUysLI",
-          "Content-Type": "application/json",
-        },
+        headers: {"token": token ?? "", "Content-Type": "application/json"},
       ),
     );
 
@@ -94,14 +129,11 @@ class ApiManager {
   }
 
   Future<bool> deleteProductFromFav(String productId) async {
+    var token = await Token.getToken();
     final response = await _dio.delete(
       "https://ecommerce.routemisr.com/api/v1/wishlist/$productId",
       options: Options(
-        headers: {
-          "token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MjlmOGNiODRkOTUwYzkwMjM2YmVhYSIsIm5hbWUiOiJzdWx0YW4iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDM1ODM0NywiZXhwIjoxNzcyMTM0MzQ3fQ.CyYsSlml-ljGZaXt-9lj9yRBJLs8228EMXXYQaUysLI",
-          "Content-Type": "application/json",
-        },
+        headers: {"token": token ?? "", "Content-Type": "application/json"},
       ),
     );
 

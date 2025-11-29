@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/brand_cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/home/presentation/cubit/brand_cubit/brand_state.dart';
@@ -64,11 +63,13 @@ class _HomeTabState extends State<HomeTab> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 20),
             CustomAdsWidget(
               adsImages: adsImages,
               currentIndex: _currentIndex,
               timer: _timer,
             ),
+            SizedBox(height: 20),
             Column(
               children: [
                 CustomSectionBar(sectionNname: 'Categories', function: () {}),
@@ -90,7 +91,7 @@ class _HomeTabState extends State<HomeTab> {
                               onTap: () {
                                 Navigator.pushNamed(
                                   context,
-                                  Routes.productsScreenRoute,
+                                  Routes.productsByCategory,
                                   arguments: categories[index].id,
                                 );
                               },
@@ -125,12 +126,18 @@ class _HomeTabState extends State<HomeTab> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return CustomBrandWidget(
-                              
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.productsByBrand,
+                                  arguments: brands[index].id,
+                                );
+                              },
                               brandImage: brands[index].image,
                               brandName: brands[index].name,
                             );
                           },
-                          itemCount: 20,
+                          itemCount: brands.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,

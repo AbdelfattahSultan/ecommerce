@@ -8,6 +8,10 @@ class FavoriteLoading extends FavoriteState {
   
 }
 
+class FavoriteEmpty extends FavoriteState {
+  
+}
+
 class FavoriteSuccess extends FavoriteState {
   final List<Product> products;
   FavoriteSuccess(this.products);

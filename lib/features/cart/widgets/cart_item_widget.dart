@@ -2,7 +2,7 @@ import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
+
 
 import 'package:ecommerce_app/core/widget/product_counter.dart';
 import 'package:ecommerce_app/features/cart/widgets/color_and_size_cart_item.dart';
@@ -67,8 +67,8 @@ class CartItemWidget extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: AppPadding.p8.w,
-                vertical: AppPadding.p8.h,
+                horizontal: 8,
+                vertical: 8,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,7 @@ class CartItemWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: getBoldStyle(
                             color: ColorManager.textColor,
-                            fontSize: AppSize.s18.sp,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -100,16 +100,16 @@ class CartItemWidget extends StatelessWidget {
                     ],
                   ),
 
-                  // SizedBox(height: 7.h),
+
                   const Spacer(),
-                  // display color and size===================
+
                   ColorAndSizeCartItem(
                     color: color,
                     colorName: colorName,
                     size: size,
                   ),
                   const Spacer(),
-                  // display price and quantity =================
+
                   Row(
                     children: [
                       Expanded(
@@ -119,7 +119,7 @@ class CartItemWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: getBoldStyle(
                               color: ColorManager.textColor,
-                              fontSize: AppSize.s18.sp),
+                              fontSize: 18),
                         ),
                       ),
                       ProductCounter(

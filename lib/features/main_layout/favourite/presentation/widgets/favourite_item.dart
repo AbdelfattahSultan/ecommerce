@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/constants_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/core/widget/heart_button.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/favorite_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/widgets/add_to_cart_button.dart';
@@ -45,10 +44,10 @@ class FavoriteItem extends StatelessWidget {
           );
         },
         child: Container(
-          height: AppSize.s135,
-          padding: EdgeInsets.only(right: AppSize.s8),
+          height: 135,
+          padding: EdgeInsets.only(right: 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppSize.s16),
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: ColorManager.primary.withOpacity(.3),
             ),
@@ -59,16 +58,16 @@ class FavoriteItem extends StatelessWidget {
               // صورة المنتج
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSize.s16),
+                  borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: ColorManager.primary.withOpacity(.6),
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(AppSize.s16),
+                  borderRadius: BorderRadius.circular(16),
                   child: CachedNetworkImage(
-                    width: AppSize.s120,
-                    height: AppSize.s135,
+                    width: 120,
+                    height: 135,
                     fit: BoxFit.cover,
                     imageUrl: imageUrl,
                     placeholder: (context, url) => Center(
@@ -82,10 +81,10 @@ class FavoriteItem extends StatelessWidget {
                 ),
               ),
 
-              // تفاصيل المنتج (اسم + سعر + تقييم)
+            
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: AppSize.s8),
+                  padding: EdgeInsets.only(left: 8),
                   child: FavouriteItemDetails(
                     title: title,
                     finalPrice: finalPrice,
@@ -95,7 +94,7 @@ class FavoriteItem extends StatelessWidget {
                 ),
               ),
 
-              // زرار القلب + add to cart
+  
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -108,16 +107,15 @@ class FavoriteItem extends StatelessWidget {
                           context
                               .read<FavoriteCubit>()
                               .toggleFavorite(productId);
-                          // هنا لو حابب تحذف من الليست بعد الـ delete
-                          // ممكن تستدعي cubit برا الشاشة وتعمل refresh
+                        
                         },
                       );
                     },
                   ),
-                  SizedBox(height: AppSize.s14),
+                  SizedBox(height: 14),
                   AddToCartButton(
                     onPressed: () {
-                      // TODO: add product to cart
+                
                     },
                     text: AppConstants.addToCart,
                   ),

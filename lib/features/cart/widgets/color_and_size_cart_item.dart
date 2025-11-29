@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,7 +27,7 @@ class ColorAndSizeCartItem extends StatelessWidget {
           colorName,
           style: getRegularStyle(
             color: ColorManager.textColor.withOpacity(0.5),
-            fontSize: AppSize.s14.sp,
+            fontSize: 14,
           ),
         ),
         SizedBox(width: 5.w),
@@ -44,7 +44,7 @@ class ColorAndSizeCartItem extends StatelessWidget {
           'Size: $size',
           style: getRegularStyle(
               color: ColorManager.textColor.withOpacity(0.5),
-              fontSize: AppSize.s14.sp),
+              fontSize:14),
         ),
       ],
     );

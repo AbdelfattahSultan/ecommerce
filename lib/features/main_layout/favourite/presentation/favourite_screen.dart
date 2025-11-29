@@ -1,10 +1,9 @@
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/favorite_state.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/getFav/getFav_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/widgets/favourite_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
@@ -15,8 +14,8 @@ class FavouriteScreen extends StatelessWidget {
       create: (context) => GetFavCubit()..getFavProducts(),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSize.s14.w,
-          vertical: AppSize.s10.h,
+          horizontal: 14,
+          vertical:10,
         ),
         child: BlocBuilder<GetFavCubit, FavoriteState>(
           builder: (context, state) {
@@ -34,7 +33,7 @@ class FavouriteScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var product = favoriteProducts[index];
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: AppSize.s12.h),
+                    padding: EdgeInsets.symmetric(vertical:12),
                     child: FavoriteItem(
                       imageUrl: product.imageCover ?? "",
                       title: product.title ?? "",

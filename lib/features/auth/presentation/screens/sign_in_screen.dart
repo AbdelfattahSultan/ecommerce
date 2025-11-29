@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/core/Routes/Routes.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/core/widget/custom_elevated_button.dart';
 import 'package:ecommerce_app/core/widget/main_text_field.dart';
 import 'package:ecommerce_app/core/widget/validators.dart';
@@ -53,14 +52,14 @@ class _SignInScreenState extends State<SignInScreen> {
             },
             builder: (context, state) {
               return Padding(
-                padding: const EdgeInsets.all(AppPadding.p20),
+                padding: const EdgeInsets.all(20),
                 child: Form(
                   key: _formKey,
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: AppSize.s40.h),
+                        SizedBox(height:40),
                         Center(
                           child: Image.asset(
                             "assets/images/logoApp.png",
@@ -68,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: AppSize.s40.h),
+                        SizedBox(height: 40),
 
                         Text(
                           'Welcome Back',
@@ -83,7 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ).copyWith(fontSize: FontSize.s16.sp),
                         ),
 
-                        SizedBox(height: AppSize.s50.h),
+                        SizedBox(height: 50),
 
                         BuildTextField(
                           controller: _emailController,
@@ -94,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           validation: AppValidators.validateEmail,
                         ),
 
-                        SizedBox(height: AppSize.s28.h),
+                        SizedBox(height: 28),
 
                         BuildTextField(
                           controller: _passwordController,
@@ -106,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           textInputType: TextInputType.text,
                         ),
 
-                        SizedBox(height: AppSize.s60.h),
+                        SizedBox(height: 60),
 
                         Center(
                           child: SizedBox(
@@ -120,7 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     backgroundColor: ColorManager.white,
                                     textStyle: getBoldStyle(
                                       color: ColorManager.primary,
-                                      fontSize: AppSize.s18,
+                                      fontSize: 18,
                                     ),
                                     onTap: () {
                                       if (_formKey.currentState?.validate() ??
@@ -146,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 color: ColorManager.white,
                               ).copyWith(fontSize: FontSize.s16.sp),
                             ),
-                            SizedBox(width: AppSize.s8.w),
+                            SizedBox(width: 8),
                             GestureDetector(
                               onTap: () => Navigator.pushNamed(
                                 context,

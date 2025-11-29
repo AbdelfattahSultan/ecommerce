@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/font_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -26,17 +25,17 @@ class CategoryItem extends StatelessWidget {
       child: Container(
         
         color: isSelected ? ColorManager.white : Colors.transparent,
-        padding: const EdgeInsets.all(AppPadding.p8),
+        padding: const EdgeInsets.all(8),
         child: Row(
           children: [
             Visibility(
               visible: isSelected,
               child: Container(
-                width: AppSize.s8,
-                height: AppSize.s60,
+                width: 8,
+                height: 60,
                 decoration: BoxDecoration(
                   color: ColorManager.primary,
-                  borderRadius: BorderRadius.circular(AppSize.s100),
+                  borderRadius: BorderRadius.circular(100),
                 ),
               ),
             ),
@@ -44,8 +43,8 @@ class CategoryItem extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p16,
-                  horizontal: AppPadding.p8,
+                  vertical: 16,
+                  horizontal: 8,
                 ),
                 child: Text(
                   title,

@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/core/Routes/Routes.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/cubit/favorite_cubit.dart';
 import 'package:ecommerce_app/features/products_screen/presentation/widgets/custom_product_widget.dart';
 import 'package:ecommerce_app/features/products_screen/products_cubit/products_cubit.dart';
@@ -25,7 +24,7 @@ class ProductsByCategory extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         body: Padding(
-          padding: const EdgeInsets.all(AppPadding.p16),
+          padding: const EdgeInsets.all(16),
           child: BlocBuilder<ProductsCubit, ProductsState>(
             builder: (context, state) {
               if (state is ProductsLoading) {

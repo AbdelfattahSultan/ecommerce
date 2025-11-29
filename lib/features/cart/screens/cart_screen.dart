@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
+
 import 'package:ecommerce_app/features/cart/widgets/cart_item_widget.dart';
 import 'package:ecommerce_app/features/cart/widgets/total_price_and_checkout_botton.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class CartScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(AppPadding.p14),
+        padding: const EdgeInsets.all(14),
         child: Column(
           children: [
             Expanded(
@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
                   colorName: 'Black',
                 ),
                 separatorBuilder: (context, index) =>
-                    SizedBox(height: AppSize.s12.h),
+                    SizedBox(height: 12),
                 itemCount: 2,
               ),
             ),

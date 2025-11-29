@@ -4,11 +4,8 @@ import 'package:ecommerce_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:ecommerce_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/styles_manager.dart';
-import '../../../../core/resources/values_manager.dart';
 import '../../../../core/widget/main_text_field.dart';
 import '../../../../core/widget/validators.dart';
 
@@ -45,14 +42,14 @@ class SignUpScreen extends StatelessWidget {
             },
             builder: (context, state) {
               return Padding(
-                padding: const EdgeInsets.all(AppPadding.p20),
+                padding: const EdgeInsets.all(20),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: AppSize.s40.h),
+                        SizedBox(height: 40),
                           Center(
                           child: Image.asset(
                             "assets/images/logoApp.png",
@@ -60,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: AppSize.s40.h),
+                        SizedBox(height: 40),
                         BuildTextField(
                           backgroundColor: ColorManager.white,
                           hint: 'enter your full name',
@@ -69,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
                           validation: AppValidators.validateFullName,
                           controller: nameController,
                         ),
-                        SizedBox(height: AppSize.s18.h),
+                        SizedBox(height:18),
                         BuildTextField(
                           hint: 'enter your mobile no.',
                           backgroundColor: ColorManager.white,
@@ -78,7 +75,7 @@ class SignUpScreen extends StatelessWidget {
                           textInputType: TextInputType.phone,
                           controller: phoneController,
                         ),
-                        SizedBox(height: AppSize.s18.h),
+                        SizedBox(height: 18),
                         BuildTextField(
                           controller: emailController,
                           hint: 'enter your email address',
@@ -87,7 +84,7 @@ class SignUpScreen extends StatelessWidget {
                           validation: AppValidators.validateEmail,
                           textInputType: TextInputType.emailAddress,
                         ),
-                        SizedBox(height: AppSize.s18.h),
+                        SizedBox(height: 18),
                         BuildTextField(
                           hint: 'enter your password',
                           backgroundColor: ColorManager.white,
@@ -97,10 +94,10 @@ class SignUpScreen extends StatelessWidget {
                           textInputType: TextInputType.text,
                           controller: passwordController,
                         ),
-                        SizedBox(height: AppSize.s50.h),
+                        SizedBox(height: 50),
                         Center(
                           child: SizedBox(
-                            height: AppSize.s60.h,
+                            height:60,
                             width: MediaQuery.of(context).size.width * .9,
                             child: (state is AuthLoading)
                                 ? const Center(
@@ -112,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
                                     backgroundColor: ColorManager.white,
                                     textStyle: getBoldStyle(
                                       color: ColorManager.primary,
-                                      fontSize: AppSize.s20,
+                                      fontSize: 20,
                                     ),
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {

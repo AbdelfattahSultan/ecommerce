@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
+
 import 'package:ecommerce_app/features/main_layout/categories/presentation/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 
@@ -21,19 +21,19 @@ class _CategoriesListState extends State<CategoriesList> {
       decoration: BoxDecoration(
         color: ColorManager.containerGray,
         border: Border(
-            // set the border for only 3 sides
+            
             top: BorderSide(
-                width: AppSize.s2,
+                width: 2,
                 color: ColorManager.primary.withOpacity(0.3)),
             left: BorderSide(
-                width: AppSize.s2,
+                width: 2,
                 color: ColorManager.primary.withOpacity(0.3)),
             bottom: BorderSide(
-                width: AppSize.s2,
+                width: 2,
                 color: ColorManager.primary.withOpacity(0.3))),
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(AppSize.s12),
-          bottomLeft: Radius.circular(AppSize.s12),
+          topLeft: Radius.circular(12),
+          bottomLeft: Radius.circular(12),
         ),
       ),
 
@@ -41,8 +41,8 @@ class _CategoriesListState extends State<CategoriesList> {
       child: ClipRRect(
         // clip the corners of the container that hold the list view
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(AppSize.s12),
-          bottomLeft: Radius.circular(AppSize.s12),
+          topLeft: Radius.circular(12),
+          bottomLeft: Radius.circular(12),
         ),
         child: ListView.builder(
           itemCount: 20,

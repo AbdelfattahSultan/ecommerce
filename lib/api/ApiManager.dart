@@ -45,6 +45,7 @@ class ApiManager {
         "phone": phone,
       },
     );
+    
     var authResponseModel = AuthResponseModel.fromJson(response.data);
     return authResponseModel;
   }
@@ -171,6 +172,22 @@ class ApiManager {
 
     var cartResponse = CartResponse.fromJson(response.data);
     return cartResponse;
+  }
+
+    Future<bool> deleteProductFromCart(String productId) async {
+    var token = await Token.getToken();
+    final response = await _dio.delete(
+      "https://ecommerce.routemisr.com/api/v1/cart/$productId",
+      options: Options(
+        headers: {"token": token ?? "", "Content-Type": "application/json"},
+      ),
+    );
+
+    if (response.statusCode == 200 && response.data["status"] == "success") {
+      return true;
+    }
+
+    return false;
   }
 
 

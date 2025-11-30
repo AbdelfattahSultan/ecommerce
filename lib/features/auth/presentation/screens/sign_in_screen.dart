@@ -79,7 +79,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           'Please sign in with your mail',
                           style: getLightStyle(
                             color: ColorManager.white,
-                          ).copyWith(fontSize: FontSize.s16.sp),
+                          ).copyWith(fontSize: 16),
                         ),
 
                         SizedBox(height: 50),

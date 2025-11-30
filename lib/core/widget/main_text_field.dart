@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../resources/color_manager.dart';
 import '../resources/styles_manager.dart';
-import '../resources/values_manager.dart';
+
 
 class BuildTextField extends StatefulWidget {
   const BuildTextField({
@@ -66,7 +66,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
         widget.label != null
             ? Padding(
                 padding: const EdgeInsets.only(
-                     top: AppPadding.p2),
+                     top: 2),
                 child: Text(
                   widget.label!,
                   style: widget.labelTextStyle ??
@@ -76,11 +76,11 @@ class _BuildTextFieldState extends State<BuildTextField> {
               )
             : const SizedBox(),
         Container(
-          margin: const EdgeInsets.only(top: AppMargin.m5),
+          margin: const EdgeInsets.only(top:5),
           decoration: BoxDecoration(
             color: widget.backgroundColor ??
                 ColorManager.darkGrey.withOpacity(.15),
-            borderRadius: BorderRadius.circular(AppSize.s8),
+            borderRadius: BorderRadius.circular(8),
             border: Border.all(color: widget.borderBackgroundColor ?? ColorManager.transparent )
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -118,7 +118,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
               return errorText;
             },
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(AppPadding.p12),
+              contentPadding: const EdgeInsets.all(12),
               hintText: widget.hint,
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.isObscured
@@ -130,8 +130,8 @@ class _BuildTextFieldState extends State<BuildTextField> {
                           },
                         );
                       },
-                      iconSize: AppSize.s24,
-                      splashRadius: AppSize.s1,
+                      iconSize: 24,
+                      splashRadius:1,
                       isSelected: !hidden,
                       color: widget.cursorColor,
                       selectedIcon: const Icon(Icons.remove_red_eye_rounded),
@@ -144,7 +144,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               errorStyle: TextStyle(
-                fontSize: AppSize.s0,
+            
                 color: ColorManager.transparent,
               ),
             ),
@@ -154,8 +154,8 @@ class _BuildTextFieldState extends State<BuildTextField> {
             ? const SizedBox()
             : Padding(
                 padding: const EdgeInsets.only(
-                  top: AppPadding.p8,
-                  left: AppPadding.p8,
+                  top: 8,
+                  left: 8,
                 ),
                 child: Text(
                   errorText!,

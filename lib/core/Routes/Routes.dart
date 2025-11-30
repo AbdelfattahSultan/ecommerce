@@ -1,17 +1,15 @@
 class Routes {
 
-  // Auth Screens
-  static const String signInRoute = '/signIn';
-  static const String signUpRoute = '/signUp';
 
-  // Main Layout
-  static const String mainRoute = '/main';
+  static const String signInRoute = 'signIn';
+  static const String signUpRoute = 'signUp';
 
-  // Cart
-  static const String cartRoute = '/cart';
+  static const String mainRoute = 'main';
 
-  // Products
-  static const String productsScreenRoute = '/products';
-  static const String productDetails = '/productDetails';
+  static const String cartRoute = 'cart';
+
+  static const String productsByCategory = 'category';
+  static const String productsByBrand = 'brand';
+  static const String productDetails = 'productDetails';
 
 }

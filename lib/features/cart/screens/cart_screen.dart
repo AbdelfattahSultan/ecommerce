@@ -1,11 +1,14 @@
-import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
+import 'package:ecommerce_app/features/cart/cubit/delete_cart_cubit/delete_cat_cubit.dart';
+import 'package:ecommerce_app/features/cart/cubit/getCart_cubit/cart_cubit.dart';
+import 'package:ecommerce_app/features/cart/cubit/getCart_cubit/cart_state.dart';
 import 'package:ecommerce_app/features/cart/widgets/cart_item_widget.dart';
 import 'package:ecommerce_app/features/cart/widgets/total_price_and_checkout_botton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ecommerce_app/features/cart/cubit/delete_cart_cubit/delete_cart_state.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -14,61 +17,102 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Cart',
           style: getMediumStyle(fontSize: 20, color: ColorManager.textColor),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(
-                IconsAssets.icSearch,
-              ),
-              color: ColorManager.primary,
-            ),
+      ),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => CartCubit()..getUserCart(),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              AssetImage(IconsAssets.icCart),
-              color: ColorManager.primary,
-            ),
+          BlocProvider(
+            create: (context) => DeleteCartCubit(),
           ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppPadding.p14),
-        child: Column(
-          children: [
-            Expanded(
-              // the list of cart items ===============
-              child: ListView.separated(
-                itemBuilder: (context, index) => CartItemWidget(
-                  imagePath: ImageAssets.categoryCardImage,
-                  title: 'Nike Air Jordon',
-                  price: 1500,
-                  quantity: 1,
-                  onDeleteTap: () {},
-                  onDecrementTap: (value) {},
-                  onIncrementTap: (value) {},
-                  size: 40,
-                  color: Colors.black,
-                  colorName: 'Black',
-                ),
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: AppSize.s12.h),
-                itemCount: 2,
-              ),
-            ),
-            // the total price and checkout button========
-            TotalPriceAndCheckoutBotton(
-              totalPrice: 1200,
-              checkoutButtonOnTap: () {},
-            ),
-            SizedBox(height: 10.h),
-          ],
+        child: BlocListener<DeleteCartCubit, DeleteCartState>(
+          listener: (context, state) {
+            if (state is DeleteCartSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Product removed from cart")),
+              );
+              context.read<CartCubit>().getUserCart();
+            } else if (state is DeleteCartError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          },
+          child: BlocBuilder<CartCubit, CartState>(
+            builder: (context, state) {
+              if (state is CartLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is CartError) {
+                return Center(
+                  child: Text(
+                    state.message,
+                    style: getMediumStyle(color: ColorManager.textColor),
+                  ),
+                );
+              } else if (state is CartSuccess) {
+                final cart = state.cart;
+                final items = cart.data.products;
+
+                if (items.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "Your cart is empty",
+                      style: getMediumStyle(
+                        fontSize: 16,
+                        color: ColorManager.textColor,
+                      ),
+                    ),
+                  );
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            final item = items[index];
+                            final product = item.product;
+
+                            return CartItemWidget(
+                              imagePath: product.imageCover,
+                              title: product.title,
+                              rating: product.ratingsAverage,
+                              price: item.price,
+                              onDeleteTap: () {
+                                context
+                                    .read<DeleteCartCubit>()
+                                    .deleteProduct(product.productId);
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 12),
+                          itemCount: items.length,
+                        ),
+                      ),
+                      TotalPriceAndCheckoutBotton(
+                        totalPrice: cart.data.totalCartPrice,
+                        checkoutButtonOnTap: () {},
+                      ),
+                      SizedBox(height: 10.h),
+                    ],
+                  ),
+                );
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
         ),
       ),
     );

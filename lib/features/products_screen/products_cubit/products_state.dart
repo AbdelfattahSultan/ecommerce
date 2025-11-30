@@ -8,6 +8,10 @@ class ProductsSuccess extends ProductsState {
   final List<Product> products;
    ProductsSuccess(this.products);
 }
+class ProductsEmpty extends ProductsState {
+  final String message;
+  ProductsEmpty(this.message);
+}
 class ProductsError extends ProductsState {
   final String message;
 

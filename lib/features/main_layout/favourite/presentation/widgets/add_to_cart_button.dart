@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,14 +17,14 @@ class AddToCartButton extends StatelessWidget {
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSize.s14.r)),
-              padding: EdgeInsets.symmetric(horizontal: AppSize.s1.w),
+                  borderRadius: BorderRadius.circular(14)),
+              padding: EdgeInsets.symmetric(horizontal: 1),
               backgroundColor: ColorManager.primary),
           onPressed: onPressed,
           child: Text(text,
               style: getRegularStyle(
                 color: ColorManager.white,
-                fontSize: AppSize.s14.sp,
+                fontSize: 14,
               ))),
     );
   }

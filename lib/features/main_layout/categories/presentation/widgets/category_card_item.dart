@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/font_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,13 +14,13 @@ class CategoryCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Create a container for the category card
+
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: AppSize.s16),
+      margin: const EdgeInsets.symmetric(vertical: 16),
       // Height of the card set with fixed size to make all image same size but it can be deleted without affecting the code
-      height: AppSize.s100,
+      height: 100,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(AppSize.s12),
+        borderRadius: BorderRadius.circular(12),
         child: Stack(
           children: [
             // Background image for the category
@@ -33,7 +33,7 @@ class CategoryCardItem extends StatelessWidget {
             Positioned.fill(
                 child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p18, vertical: AppMargin.m8),
+                  horizontal: 18, vertical:8),
               child: Row(
                 children: [
                   Expanded(

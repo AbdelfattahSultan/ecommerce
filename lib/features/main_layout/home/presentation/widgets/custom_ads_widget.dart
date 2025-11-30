@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ecommerce_app/core/resources/color_manager.dart';
-import 'package:ecommerce_app/core/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +19,7 @@ class CustomAdsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Stack(
         children: [
           AnimatedSwitcher(
